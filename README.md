@@ -4,5 +4,5 @@ Sample web app, was bootstrapped with [Create React App](https://github.com/face
 
 This app has created with TypeScript, React, Redux, Redux Toolkit, Material UI, HTML, CSS in my learning process.
 
-App has hosted in this [URL to the project]()
+App has hosted in this [URL to the project](https://tinyman66.github.io/todolist/)
 
