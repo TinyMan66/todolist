@@ -1,5 +1,6 @@
 {
   "name": "todo16v2",
+  "homepage": "https://TinyMan66.github.io/todolist",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,6 +18,7 @@
     "@types/react-redux": "^7.1.18",
     "axios": "^0.22.0",
     "formik": "^2.2.9",
+    "gh-pages": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
@@ -31,7 +33,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
