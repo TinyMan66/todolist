@@ -3,12 +3,12 @@ import {
     SetAppErrorActionType,
     setAppStatusAC,
     SetAppStatusActionType
-} from '../../app/app-reducer'
-import {authAPI, LoginParamsType, ResultCode} from "../../api/todolists-api";
+} from 'app/app-reducer'
+import {authAPI, LoginParamsType, ResultCode} from "api/todolists-api";
 import axios, {AxiosError} from "axios";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "utils/error-utils";
 import {clearTodosDataAC, ClearTodosDataActionType} from "../TodolistsList/todolists-reducer";
-import {AppThunk} from "../../app/store";
+import {AppThunk} from "app/store";
 
 const initialState = {
     isLoggedIn: false

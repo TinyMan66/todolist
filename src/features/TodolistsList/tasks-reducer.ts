@@ -4,10 +4,10 @@ import {
     RemoveTodolistActionType,
     SetTodolistsActionType
 } from './todolists-reducer'
-import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../api/todolists-api'
-import {AppRootStateType, AppThunk} from '../../app/store'
-import {setAppStatusAC} from '../../app/app-reducer'
-import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils'
+import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from 'api/todolists-api'
+import {AppRootStateType, AppThunk} from 'app/store'
+import {setAppStatusAC} from 'app/app-reducer'
+import {handleServerAppError, handleServerNetworkError} from 'utils/error-utils'
 import {AxiosError} from "axios";
 
 const initialState: TasksStateType = {}

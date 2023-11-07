@@ -1,5 +1,5 @@
-import {authAPI, ResultCode} from "../api/todolists-api";
-import {setIsLoggedInAC} from "../features/Login/auth-reducer";
+import {authAPI, ResultCode} from "api/todolists-api";
+import {setIsLoggedInAC} from "features/Login/auth-reducer";
 import {AppThunk} from "./store";
 
 const initialState: InitialStateType = {
