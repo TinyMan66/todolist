@@ -3,6 +3,7 @@ import { appActions, RequestStatusType } from "app/app-reducer";
 import { handleServerNetworkError } from "utils/error-utils";
 import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {clearTasksAndTodolists} from "common/actions/common.actions";
 
 const slice = createSlice({
   name: "todolists",
@@ -51,10 +52,13 @@ const slice = createSlice({
       //   state.push({...tl, filter: "all", entityStatus: "idle"})
       // })
     },
-    clearTodolists: () => {
-      return [];
-    },
   },
+  extraReducers: (builder) => {
+    builder
+        .addCase(clearTasksAndTodolists.type, () => {
+          return []
+        })
+  }
 });
 
 // thunks
