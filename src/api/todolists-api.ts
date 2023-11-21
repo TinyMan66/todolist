@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UpdateDomainTaskModelType} from "features/TodolistsList/tasks-reducer";
 
 const settings = {
   withCredentials: true,
@@ -31,10 +32,10 @@ export const todolistsAPI = {
   deleteTask(todolistId: string, taskId: string) {
     return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
   },
-  createTask(todolistId: string, taskTitile: string) {
-    return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title: taskTitile });
+  createTask(arg: CreateTaskArg) {
+    return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${arg.todolistId}/tasks`, { title: arg.title });
   },
-  updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
+  updateTask(taskId: string, todolistId: string, model: UpdateDomainTaskModelType) {
     return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
   },
 };
@@ -95,6 +96,11 @@ export type TaskType = {
   order: number;
   addedDate: string;
 };
+export type UpdateTaskArg = {
+  taskId: string
+  domainModel: UpdateDomainTaskModelType
+  todolistId: string
+}
 export type UpdateTaskModelType = {
   title: string;
   description: string;
@@ -103,8 +109,14 @@ export type UpdateTaskModelType = {
   startDate: string;
   deadline: string;
 };
+export type CreateTaskArg = {
+  todolistId: string
+  title: string
+}
+
 type GetTasksResponse = {
   error: string | null;
   totalCount: number;
   items: TaskType[];
 };
+
