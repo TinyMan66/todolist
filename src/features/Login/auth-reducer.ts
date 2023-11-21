@@ -4,7 +4,7 @@ import { handleServerNetworkError } from "utils/handleServerNetworkError";
 import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
-import {handleServerAppError} from "utils/handleServerAppError";
+import {handleServerAppError} from "utils";
 
 const slice = createSlice({
   name: "auth",

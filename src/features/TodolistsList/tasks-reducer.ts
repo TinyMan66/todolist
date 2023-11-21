@@ -8,12 +8,10 @@ import {
 } from "api/todolists-api";
 import {AppThunk} from "app/store";
 import {appActions} from "app/app-reducer";
-import {handleServerNetworkError} from "utils/handleServerNetworkError";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {todolistsActions} from "features/TodolistsList/todolists-reducer";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
-import {createAppAsyncThunk} from "utils/createAppAsyncThunk";
-import {handleServerAppError} from "utils/handleServerAppError";
+import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "utils";
 
 const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[], todolistId: string }, string>
 ('tasks/fetchTasks', async (todolistId, thunkAPI) => {
