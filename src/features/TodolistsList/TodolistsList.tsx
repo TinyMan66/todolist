@@ -14,10 +14,10 @@ import { TaskStatuses } from "api/todolists-api";
 import { Grid, Paper } from "@mui/material";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "hooks";
+import { useAppDispatch } from "common/hooks";
 import {selectTodolists} from "features/TodolistsList/todolists.selectors";
 import {selectTasks} from "features/TodolistsList/tasks.selectors";
-import {AddItemForm} from "components";
+import {AddItemForm} from "common/components";
 
 type PropsType = {
   demo?: boolean;

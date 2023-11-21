@@ -19,8 +19,8 @@ import {
 import { Menu } from "@mui/icons-material";
 import {selectAppStatus, selectIsInitialized} from "app/app.selectors";
 import {selectIsLoggedIn} from "features/Login/auth.selectors";
-import {useAppDispatch} from "hooks";
-import {ErrorSnackbar} from "components";
+import {useAppDispatch} from "common/hooks";
+import {ErrorSnackbar} from "common/components";
 
 type PropsType = {
   demo?: boolean;

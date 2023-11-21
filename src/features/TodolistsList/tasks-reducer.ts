@@ -11,7 +11,7 @@ import {appActions} from "app/app-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {todolistsActions} from "features/TodolistsList/todolists-reducer";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
-import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "utils";
+import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "common/utils";
 
 const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[], todolistId: string }, string>
 ('tasks/fetchTasks', async (todolistId, thunkAPI) => {
