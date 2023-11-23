@@ -1,7 +1,12 @@
 import {instance} from "common/api/instance";
-import {UpdateDomainTaskModelType} from "features/TodolistsList/tasks-reducer";
 import {ResponseType} from "common/types/commonTypes";
-import {CreateTaskArg, GetTasksResponse, TaskType, TodolistType} from "features/TodolistsList/todolistsApi.types";
+import {
+    CreateTaskArg,
+    GetTasksResponse,
+    TaskType,
+    TodolistType,
+    UpdateTaskModelType
+} from "features/TodolistsList/todolistsApi.types";
 
 export const todolistsAPI = {
     getTodolists() {
@@ -25,7 +30,7 @@ export const todolistsAPI = {
     createTask(arg: CreateTaskArg) {
         return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${arg.todolistId}/tasks`, { title: arg.title });
     },
-    updateTask(taskId: string, todolistId: string, model: UpdateDomainTaskModelType) {
+    updateTask(taskId: string, todolistId: string, model: UpdateTaskModelType) {
         return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
     },
 };

@@ -63,7 +63,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>('tasks/upda
             ...arg.domainModel
         }
 
-        const res = await todolistsAPI.updateTask(arg.todolistId, arg.taskId, apiModel)
+        const res = await todolistsAPI.updateTask(arg.taskId, arg.todolistId, apiModel)
         if (res.data.resultCode === 0) {
             dispatch(appActions.setAppStatus({status: 'succeeded'}))
             return arg
