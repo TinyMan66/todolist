@@ -5,6 +5,7 @@ import {clearTasksAndTodolists} from "common/actions/common.actions";
 import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "common/utils";
 import {CreateTaskArg, TaskType, UpdateTaskArg, UpdateTaskModelType} from "features/TodolistsList/todolistsApi.types";
 import {todolistsAPI} from "features/TodolistsList/todolistsApi";
+import {ResultCode} from "common/enums";
 
 const slice = createSlice({
     name: "tasks",
@@ -71,7 +72,7 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArg >
     try {
         dispatch(appActions.setAppStatus({status: "loading"}))
         const res = await todolistsAPI.createTask(arg)
-        if (res.data.resultCode === 0) {
+        if (res.data.resultCode === ResultCode.success) {
             const task = res.data.data.item;
             dispatch(appActions.setAppStatus({status: "succeeded"}));
             return {task}
@@ -106,7 +107,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>(`${slice.na
         }
 
         const res = await todolistsAPI.updateTask(arg.taskId, arg.todolistId, apiModel)
-        if (res.data.resultCode === 0) {
+        if (res.data.resultCode === ResultCode.success) {
             dispatch(appActions.setAppStatus({status: 'succeeded'}))
             return arg
         } else {
@@ -124,7 +125,7 @@ const removeTask = createAppAsyncThunk<{taskId: string, todolistId: string}, {ta
     try {
         dispatch(appActions.setAppStatus({status: "loading"}))
         const res = await todolistsAPI.deleteTask(arg.todolistId, arg.taskId)
-        if (res.data.resultCode === 0) {
+        if (res.data.resultCode === ResultCode.success) {
             dispatch(appActions.setAppStatus({status: 'succeeded'}))
             return arg
         } else {

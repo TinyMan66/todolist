@@ -4,6 +4,8 @@ import {clearTasksAndTodolists} from "common/actions/common.actions";
 import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "common/utils";
 import {TodolistType} from "features/TodolistsList/todolistsApi.types";
 import {todolistsAPI} from "features/TodolistsList/todolistsApi";
+import {ResultCode} from "common/enums";
+
 
 const slice = createSlice({
   name: "todolists",
@@ -68,7 +70,7 @@ const removeTodolist = createAppAsyncThunk<{ id: string }, string>(`${slice.name
     dispatch(appActions.setAppStatus({ status: "loading" }));
     dispatch(todolistsActions.changeTodolistEntityStatus({ id, status: "loading" }));
     const res = await todolistsAPI.deleteTodolist(id)
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.success) {
       dispatch(appActions.setAppStatus({ status: "succeeded" }));
       return { id };
     } else {
@@ -86,7 +88,7 @@ const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(`${s
   try {
     dispatch(appActions.setAppStatus({ status: "loading" }));
     const res = await todolistsAPI.createTodolist(title)
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.success) {
       dispatch(appActions.setAppStatus({ status: "succeeded" }));
       return { todolist: res.data.data.item };
     } else {
@@ -103,7 +105,7 @@ const changeTodolistTitle = createAppAsyncThunk<{ id: string, title: string }, a
   try {
     dispatch(appActions.setAppStatus({ status: "loading" }));
     const res = await todolistsAPI.updateTodolist(arg.id, arg.title)
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.success) {
       dispatch(appActions.setAppStatus({ status: "succeeded" }));
       return arg;
     } else {

@@ -6,6 +6,7 @@ import {clearTasksAndTodolists} from "common/actions/common.actions";
 import {handleServerAppError} from "common/utils";
 import {LoginParamsType} from "features/Login/authApi.types";
 import {authAPI} from "features/Login/authApi";
+import {ResultCode} from "common/enums";
 
 const slice = createSlice({
   name: "auth",
@@ -27,7 +28,7 @@ export const loginTC =
     authAPI
       .login(data)
       .then((res) => {
-        if (res.data.resultCode === 0) {
+        if (res.data.resultCode === ResultCode.success) {
           dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
           dispatch(appActions.setAppStatus({ status: "succeeded" }));
         } else {
@@ -43,7 +44,7 @@ export const logoutTC = (): AppThunk => (dispatch) => {
   authAPI
     .logout()
     .then((res) => {
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.success) {
         dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
         dispatch(clearTasksAndTodolists());
         dispatch(appActions.setAppStatus({ status: "succeeded" }));
