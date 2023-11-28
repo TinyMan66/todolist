@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from "react";
 import "./App.css";
 import { TodolistsList } from "features/TodolistsList/TodolistsList";
 import { useSelector } from "react-redux";
-import { initializeAppTC } from "./app-reducer";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Login } from "features/Login/Login";
 import {
@@ -33,7 +32,7 @@ function App({ demo = false }: PropsType) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(initializeAppTC());
+    dispatch(authThunks.initializeApp());
   }, []);
 
   const logoutHandler = useCallback(() => {
