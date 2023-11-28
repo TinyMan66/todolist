@@ -48,3 +48,7 @@ export type GetTasksResponse = {
     totalCount: number;
     items: TaskType[];
 };
+export type UpdateTodolistTitleArgType = {
+    id: string;
+    title: string;
+};

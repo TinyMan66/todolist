@@ -2,10 +2,9 @@ import { appActions, RequestStatusType } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
 import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "common/utils";
-import {TodolistType} from "features/TodolistsList/todolistsApi.types";
+import {TodolistType, UpdateTodolistTitleArgType} from "features/TodolistsList/todolistsApi.types";
 import {todolistsAPI} from "features/TodolistsList/todolistsApi";
 import {ResultCode} from "common/enums";
-
 
 const slice = createSlice({
   name: "todolists",
@@ -100,7 +99,7 @@ const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(`${s
     return rejectWithValue(null)
   }
 })
-const changeTodolistTitle = createAppAsyncThunk<{ id: string, title: string }, any>(`${slice.name}/changeTodolistTitle`, async (arg, thunkAPI) => {
+const changeTodolistTitle = createAppAsyncThunk<UpdateTodolistTitleArgType, UpdateTodolistTitleArgType>(`${slice.name}/changeTodolistTitle`, async (arg, thunkAPI) => {
   const {dispatch, rejectWithValue} = thunkAPI
   try {
     dispatch(appActions.setAppStatus({ status: "loading" }));
