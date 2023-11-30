@@ -14,18 +14,6 @@ export const Login = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const formik = useFormik({
-    validate: (values) => {
-      if (!values.email) {
-        return {
-          email: "Email is required",
-        };
-      }
-      if (!values.password) {
-        return {
-          password: "Password is required",
-        };
-      }
-    },
     initialValues: {
       email: "",
       password: "",
@@ -36,7 +24,7 @@ export const Login = () => {
           .unwrap()
           .then(() => {})
           .catch((reason: BaseResponse) => {
-            reason.fieldsErrors.forEach((f) =>{
+            reason.fieldsErrors?.forEach((f) =>{
               return formikHelpers.setFieldError(f.field, f.error)
             })
           })
@@ -64,9 +52,9 @@ export const Login = () => {
               <p>Password: free</p>
             </FormLabel>
             <FormGroup>
-              <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} />
+              <TextField autoComplete='off' label="Email" margin="normal" {...formik.getFieldProps("email")} />
               {formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-              <TextField type="password" label="Password" margin="normal" {...formik.getFieldProps("password")} />
+              <TextField autoComplete='off' type="password" label="Password" margin="normal" {...formik.getFieldProps("password")} />
               {formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
               <FormControlLabel
                 label={"Remember me"}
