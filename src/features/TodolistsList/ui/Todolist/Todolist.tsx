@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from "react";
-import {Task} from "features/TodolistsList/ui/Todolist/Task/Task";
 import {
     TodolistDomainType, todolistsThunks
 } from "features/TodolistsList/model/todolists/todolistsSlice";
@@ -8,9 +7,9 @@ import {useAppDispatch} from "common/hooks";
 import {IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {AddItemForm, EditableSpan} from "common/components";
-import {TaskStatuses} from "common/enums/enums";
 import {TaskType} from "features/TodolistsList/api/tasks/tasksApi.types";
 import {FilterTasksButtons} from "features/TodolistsList/ui/Todolist/FilterTasksButtons/FilterTasksButtons";
+import {Tasks} from "features/TodolistsList/ui/Todolist/Tasks/Tasks";
 
 export const Todolist = React.memo(function ({demo = false, tasks, todolist}: Props) {
     const dispatch = useAppDispatch();
@@ -40,15 +39,6 @@ export const Todolist = React.memo(function ({demo = false, tasks, todolist}: Pr
         [todolist.id],
     );
 
-    let tasksForTodolist = tasks;
-
-    if (todolist.filter === "active") {
-        tasksForTodolist = tasks.filter((t) => t.status === TaskStatuses.New);
-    }
-    if (todolist.filter === "completed") {
-        tasksForTodolist = tasks.filter((t) => t.status === TaskStatuses.Completed);
-    }
-
     return (
         <div>
             <h3>
@@ -58,15 +48,7 @@ export const Todolist = React.memo(function ({demo = false, tasks, todolist}: Pr
                 </IconButton>
             </h3>
             <AddItemForm addItem={addTaskCallback} disabled={todolist.entityStatus === "loading"}/>
-            <div>
-                {tasksForTodolist?.map((t) => (
-                    <Task
-                        key={t.id}
-                        task={t}
-                        todolistId={todolist.id}
-                    />
-                ))}
-            </div>
+            <Tasks todolist={todolist} tasks={tasks}/>
             <div style={{paddingTop: "10px"}}>
                 <FilterTasksButtons todolist={todolist}/>
             </div>
@@ -77,7 +59,7 @@ export const Todolist = React.memo(function ({demo = false, tasks, todolist}: Pr
 // types
 
 type Props = {
-    todolist: TodolistDomainType;
-    tasks: Array<TaskType>;
-    demo?: boolean;
+    todolist: TodolistDomainType
+    tasks: TaskType[]
+    demo?: boolean
 };
