@@ -1,16 +1,16 @@
 import React, {useCallback, useEffect} from "react";
 import {Task} from "features/TodolistsList/ui/Todolist/Task/Task";
 import {
-    TodolistDomainType,
-    todolistsActions, todolistsThunks
+    TodolistDomainType, todolistsThunks
 } from "features/TodolistsList/model/todolists/todolistsSlice";
 import {tasksThunks} from "features/TodolistsList/model/tasks/tasksSlice";
 import {useAppDispatch} from "common/hooks";
-import {Button, IconButton} from "@mui/material";
+import {IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {AddItemForm, EditableSpan} from "common/components";
 import {TaskStatuses} from "common/enums/enums";
 import {TaskType} from "features/TodolistsList/api/tasks/tasksApi.types";
+import {FilterTasksButtons} from "features/TodolistsList/ui/Todolist/FilterTasksButtons/FilterTasksButtons";
 
 export const Todolist = React.memo(function ({demo = false, tasks, todolist}: Props) {
     const dispatch = useAppDispatch();
@@ -36,25 +36,6 @@ export const Todolist = React.memo(function ({demo = false, tasks, todolist}: Pr
     const changeTodolistTitleHandler = useCallback(
         (title: string) => {
             dispatch(todolistsThunks.changeTodolistTitle({id: todolist.id, title}));
-        },
-        [todolist.id],
-    );
-
-    const allClickHandler = useCallback(
-        () => {
-            dispatch(todolistsActions.changeTodolistFilter({ id: todolist.id, filter: "all" }));
-        },
-        [todolist.id],
-    );
-    const activeClickHandler = useCallback(
-        () => {
-            dispatch(todolistsActions.changeTodolistFilter({ id: todolist.id, filter: "active" }));
-        },
-        [todolist.id],
-    );
-    const completedClickHandler = useCallback(
-        () => {
-            dispatch(todolistsActions.changeTodolistFilter({ id: todolist.id, filter: "completed" }));
         },
         [todolist.id],
     );
@@ -87,27 +68,7 @@ export const Todolist = React.memo(function ({demo = false, tasks, todolist}: Pr
                 ))}
             </div>
             <div style={{paddingTop: "10px"}}>
-                <Button
-                    variant={todolist.filter === "all" ? "outlined" : "text"}
-                    onClick={allClickHandler}
-                    color={"inherit"}
-                >
-                    All
-                </Button>
-                <Button
-                    variant={todolist.filter === "active" ? "outlined" : "text"}
-                    onClick={activeClickHandler}
-                    color={"primary"}
-                >
-                    Active
-                </Button>
-                <Button
-                    variant={todolist.filter === "completed" ? "outlined" : "text"}
-                    onClick={completedClickHandler}
-                    color={"secondary"}
-                >
-                    Completed
-                </Button>
+                <FilterTasksButtons todolist={todolist}/>
             </div>
         </div>
     );
