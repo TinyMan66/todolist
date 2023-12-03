@@ -10,7 +10,7 @@ import {thunkTryCatch} from "common/utils/thunkTryCatch";
 
 const slice = createSlice({
     name: "tasks",
-    initialState: {} as TasksStateType,
+    initialState: {} as TasksState,
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -119,9 +119,7 @@ const removeTask = createAppAsyncThunk<{taskId: string, todolistId: string}, {ta
 })
 
 // types
-export type TasksStateType = {
-    [key: string]: Array<TaskType>;
-};
+export type TasksState = Record<string, TaskType[]>
 
 export const tasksReducer = slice.reducer;
 export const tasksActions = slice.actions;

@@ -1,9 +1,9 @@
 import {TaskPriorities, TaskStatuses} from "common/enums/enums";
-import {tasksReducer, TasksStateType, tasksThunks} from "./tasks-reducer";
+import {tasksReducer, TasksState, tasksThunks} from "./tasks-reducer";
 
 import {todolistsThunks} from "./todolists-reducer";
 
-let startState: TasksStateType = {};
+let startState: TasksState = {};
 beforeEach(() => {
   startState = {
     todolistId1: [
