@@ -3,7 +3,7 @@ import "./App.css";
 import { TodolistsList } from "features/TodolistsList/TodolistsList";
 import { useSelector } from "react-redux";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { Login } from "features/Login/Login";
+import { Login } from "features/auth/ui/Login/Login";
 import {
   AppBar,
   Button,
@@ -16,10 +16,10 @@ import {
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import {selectAppStatus, selectIsInitialized} from "app/app.selectors";
-import {selectIsLoggedIn} from "features/Login/auth.selectors";
+import {selectIsLoggedIn} from "features/auth/model/auth.selectors";
 import {useAppDispatch} from "common/hooks";
 import {ErrorSnackbar} from "common/components";
-import {authThunks} from "features/Login/auth-reducer";
+import {authThunks} from "features/auth/model/auth-reducer";
 
 type PropsType = {
   demo?: boolean;

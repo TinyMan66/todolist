@@ -1,8 +1,8 @@
 import {useAppDispatch} from "common/hooks";
 import {useFormik} from "formik";
-import {authThunks} from "features/Login/auth-reducer";
+import {authThunks} from "features/auth/model/auth-reducer";
 import {BaseResponse} from "common/types/commonTypes";
-import {LoginParamsType} from "features/Login/authApi.types";
+import {LoginParamsType} from "features/auth/api/authApi.types";
 
 export const useLogin = () => {
     const dispatch = useAppDispatch();
