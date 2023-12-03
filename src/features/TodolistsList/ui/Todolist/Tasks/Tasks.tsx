@@ -1,4 +1,4 @@
-import {Task} from "features/TodolistsList/ui/Todolist/Task/Task";
+import {Task} from "features/TodolistsList/ui/Todolist/Tasks/Task/Task";
 import {TodolistDomainType} from "features/TodolistsList/model/todolists/todolistsSlice";
 import {TaskType} from "features/TodolistsList/api/tasks/tasksApi.types";
 import {TaskStatuses} from "common/enums";
@@ -25,6 +25,7 @@ export const Tasks = ({todolist, tasks}: Props) => {
     );
 };
 
+// types
 type Props = {
     todolist: TodolistDomainType
     tasks: TaskType[]

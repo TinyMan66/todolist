@@ -11,11 +11,7 @@ import {selectTodolists} from "features/TodolistsList/model/todolists/todolistsS
 import {selectTasks} from "features/TodolistsList/model/tasks/tasksSelectors";
 import {AddItemForm} from "common/components";
 
-type PropsType = {
-    demo?: boolean;
-};
-
-export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
+export const TodolistsList = () => {
     const todolists = useSelector(selectTodolists)
     const tasks = useSelector(selectTasks);
     const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
@@ -23,7 +19,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (demo || !isLoggedIn) {
+        if (!isLoggedIn) {
             return;
         }
         dispatch(todolistsThunks.fetchTodolists());
@@ -52,7 +48,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                                 <Todolist
                                     todolist={tl}
                                     tasks={allTodolistTasks}
-                                    demo={demo}
                                 />
                             </Paper>
                         </Grid>

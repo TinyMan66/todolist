@@ -6,7 +6,7 @@ import {TaskStatuses} from "common/enums/enums";
 import {TaskType} from "features/TodolistsList/api/tasks/tasksApi.types";
 import {tasksThunks} from "features/TodolistsList/model/tasks/tasksSlice";
 import {useAppDispatch} from "common/hooks";
-import s from "./Task.module.css";
+import s from "features/TodolistsList/ui/Todolist/Tasks/Task/Task.module.css";
 
 export const Task = React.memo(({task, todolistId}: Props) => {
     const dispatch = useAppDispatch();
