@@ -4,14 +4,14 @@ import { AppRootStateType } from "app/store";
 import {
   FilterValuesType,
   todolistsActions, todolistsThunks,
-} from "./todolists-reducer";
-import {tasksThunks} from "./tasks-reducer";
+} from "features/TodolistsList/model/todolists/todolistsSlice";
+import {tasksThunks} from "features/TodolistsList/model/tasks/tasksSlice";
 import { Grid, Paper } from "@mui/material";
-import { Todolist } from "./Todolist/Todolist";
+import { Todolist } from "features/TodolistsList/ui/Todolist/Todolist";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch } from "common/hooks";
-import {selectTodolists} from "features/TodolistsList/todolists.selectors";
-import {selectTasks} from "features/TodolistsList/tasks.selectors";
+import {selectTodolists} from "features/TodolistsList/model/todolists/todolistsSelectors";
+import {selectTasks} from "features/TodolistsList/model/tasks/tasksSelectors";
 import {AddItemForm} from "common/components";
 import {TaskStatuses} from "common/enums/enums";
 
