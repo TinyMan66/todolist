@@ -7,6 +7,7 @@ import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, 
 import {selectIsLoggedIn} from "features/Login/auth.selectors";
 import {authThunks} from "features/Login/auth-reducer";
 import {BaseResponse} from "common/types/commonTypes";
+import {LoginParamsType} from "features/Login/authApi.types";
 
 export const Login = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,22 @@ export const Login = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const formik = useFormik({
+    validate: (values) => {
+      const errors: FormikError = {};
+      if (!values.email) {
+        errors.email = "Email is required";
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = "Invalid email address";
+      }
+
+      if (!values.password) {
+        errors.password = "Required";
+      } else if (values.password.length < 3) {
+        errors.password = "Must be 3 characters or more";
+      }
+
+      return errors;
+    },
     initialValues: {
       email: "",
       password: "",
@@ -70,3 +87,6 @@ export const Login = () => {
     </Grid>
   );
 };
+
+// types
+type FormikError = Partial<Omit<LoginParamsType, 'captcha'>>
