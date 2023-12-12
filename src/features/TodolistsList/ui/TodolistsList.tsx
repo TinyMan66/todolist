@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "app/store";
-import {todolistsThunks,
-} from "features/TodolistsList/model/todolists/todolistsSlice";
+import {todolistsThunks} from "features/TodolistsList/model/todolists/todolistsSlice";
 import {Grid, Paper} from "@mui/material";
 import {Todolist} from "features/TodolistsList/ui/Todolist/Todolist";
 import {Navigate} from "react-router-dom";
@@ -26,7 +25,7 @@ export const TodolistsList = () => {
     }, []);
 
     const addTodolistCallback = useCallback((title: string) => {
-        dispatch(todolistsThunks.addTodolist(title));
+        return dispatch(todolistsThunks.addTodolist(title)).unwrap()
     }, []);
 
     if (!isLoggedIn) {

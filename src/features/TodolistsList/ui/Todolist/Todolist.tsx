@@ -17,7 +17,7 @@ export const Todolist = memo(function ({tasks, todolist}: Props) {
 
     const addTaskCallback = useCallback(
         (title: string) => {
-            dispatch(tasksThunks.addTask({title, todolistId: todolist.id}))
+            return dispatch(tasksThunks.addTask({title, todolistId: todolist.id})).unwrap()
         },
         [todolist.id],
     );
