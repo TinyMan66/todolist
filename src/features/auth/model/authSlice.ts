@@ -1,5 +1,5 @@
 import {appActions} from "app/appSlice";
-import {AnyAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, isAnyOf, PayloadAction} from "@reduxjs/toolkit";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
 import {createAppAsyncThunk, handleServerAppError} from "common/utils";
 import {LoginParamsType} from "features/auth/api/authApi.types";
@@ -19,13 +19,12 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addMatcher((action: AnyAction) => {
-                return action.type === "auth/login/fulfilled" ||
-                    action.type === "auth/logout/fulfilled" ||
-                    action.type === "auth/initializeApp/fulfilled";
-            }, (state, action) => {
-                state.isLoggedIn = action.payload.isLoggedIn;
-            });
+            .addMatcher(
+                isAnyOf(authThunks.login.fulfilled, authThunks.logout.fulfilled, authThunks.initializeApp.fulfilled),
+                (state, action) => {
+                    state.isLoggedIn = action.payload.isLoggedIn;
+                });
+
     }
 });
 
