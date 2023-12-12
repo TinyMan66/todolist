@@ -1,6 +1,6 @@
 import {useAppDispatch} from "common/hooks";
 import {useFormik} from "formik";
-import {authThunks} from "features/auth/model/auth-reducer";
+import {authThunks} from "features/auth/model/authSlice";
 import {BaseResponse} from "common/types/commonTypes";
 import {LoginParamsType} from "features/auth/api/authApi.types";
 

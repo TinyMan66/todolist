@@ -22,5 +22,4 @@ export const handleServerNetworkError = (error: unknown, dispatch: Dispatch) => 
   }
 
   dispatch(appActions.setAppError({ error: errorMessage }));
-  dispatch(appActions.setAppStatus({ status: "failed" }));
 };

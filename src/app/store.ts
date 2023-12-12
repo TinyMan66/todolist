@@ -2,7 +2,7 @@ import { tasksSlice } from "features/TodolistsList/model/tasks/tasksSlice";
 import { todolistsSlice } from "features/TodolistsList/model/todolists/todolistsSlice";
 import thunkMiddleware from "redux-thunk";
 import { appSlice } from "app/appSlice";
-import { authReducer } from "features/auth/model/auth-reducer";
+import { authSlice } from "features/auth/model/authSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -10,7 +10,7 @@ export const store = configureStore({
     tasks: tasksSlice,
     todolists: todolistsSlice,
     app: appSlice,
-    auth: authReducer,
+    auth: authSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware),
 });
