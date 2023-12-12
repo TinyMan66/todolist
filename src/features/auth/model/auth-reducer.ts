@@ -1,4 +1,4 @@
-import { appActions } from "app/app-reducer";
+import { appActions } from "app/appSlice";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
 import {createAppAsyncThunk, handleServerAppError} from "common/utils";

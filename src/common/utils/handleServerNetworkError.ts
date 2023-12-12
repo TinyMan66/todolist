@@ -1,4 +1,4 @@
-import { appActions } from "app/app-reducer";
+import { appActions } from "app/appSlice";
 import { Dispatch } from "redux";
 import axios from "axios";
 

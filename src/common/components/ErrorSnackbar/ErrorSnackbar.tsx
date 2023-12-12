@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { appActions } from "app/app-reducer";
+import { appActions } from "app/appSlice";
 import { AlertProps, Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import {selectAppError} from "app/app.selectors";

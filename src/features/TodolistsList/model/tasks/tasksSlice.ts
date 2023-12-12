@@ -1,4 +1,4 @@
-import {appActions} from "app/app-reducer";
+import {appActions} from "app/appSlice";
 import {createSlice} from "@reduxjs/toolkit";
 import {todolistsThunks} from "features/TodolistsList/model/todolists/todolistsSlice";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
