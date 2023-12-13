@@ -58,27 +58,21 @@ const slice = createSlice({
 
 // thunks
 const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[], todolistId: string }, string>
-(`${slice.name}/fetchTasks`, async (todolistId, thunkAPI) => {
-    return thunkTryCatch(thunkAPI, async () => {
-        const res = await tasksAPI.getTasks(todolistId)
-        const tasks = res.data.items
-        return {tasks, todolistId}
-    })
+(`${slice.name}/fetchTasks`, async (todolistId) => {
+    const res = await tasksAPI.getTasks(todolistId)
+    const tasks = res.data.items
+    return {tasks, todolistId}
 })
 
-const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArg >
-(`${slice.name}/addTask`, async (arg, thunkAPI) => {
-    const {dispatch, rejectWithValue} = thunkAPI
-    return thunkTryCatch(thunkAPI, async () => {
-        const res = await tasksAPI.createTask(arg)
-        if (res.data.resultCode === ResultCode.success) {
-            const task = res.data.data.item;
-            return {task}
-        } else {
-            handleServerAppError(res.data, dispatch, false);
-            return rejectWithValue(res.data)
-        }
-    })
+const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArg>
+(`${slice.name}/addTask`, async (arg, {rejectWithValue}) => {
+    const res = await tasksAPI.createTask(arg)
+    if (res.data.resultCode === ResultCode.success) {
+        const task = res.data.data.item;
+        return {task}
+    } else {
+        return rejectWithValue(res.data)
+    }
 })
 
 const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>(`${slice.name}/updateTask`, async (arg, thunkAPI) => {
@@ -110,7 +104,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>(`${slice.na
     })
 })
 
-const removeTask = createAppAsyncThunk<{taskId: string, todolistId: string}, {taskId: string, todolistId: string}>(`${slice.name}/removeTask`, async(arg, thunkAPI) => {
+const removeTask = createAppAsyncThunk<{ taskId: string, todolistId: string }, { taskId: string, todolistId: string }>(`${slice.name}/removeTask`, async (arg, thunkAPI) => {
     const {dispatch, rejectWithValue} = thunkAPI
     return thunkTryCatch(thunkAPI, async () => {
         const res = await tasksAPI.deleteTask(arg.todolistId, arg.taskId)

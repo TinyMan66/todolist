@@ -28,10 +28,10 @@ const slice = createSlice({
             .addMatcher(isRejected, (state, action: AnyAction) => {
                     state.status = 'failed';
                     if (action.payload) {
-                        if (action.type.includes("addTodolist"))return;
+                        if (action.type.includes("addTodolist") || action.type.includes("addTask")) return;
                         state.error = action.payload.messages[0]
                     } else {
-                        state.error = action.error.message? action.error.message : 'Some error occurred!'
+                        state.error = action.error.message ? action.error.message : 'Some error occurred!'
                     }
                 }
             )
