@@ -2,9 +2,8 @@ import {appActions} from "app/appSlice";
 import {createSlice} from "@reduxjs/toolkit";
 import {todolistsThunks} from "features/TodolistsList/model/todolists/todolistsSlice";
 import {clearTasksAndTodolists} from "common/actions/common.actions";
-import {createAppAsyncThunk, handleServerAppError} from "common/utils";
+import {createAppAsyncThunk} from "common/utils";
 import {ResultCode} from "common/enums";
-import {thunkTryCatch} from "common/utils/thunkTryCatch";
 import {
     CreateTaskArg,
     TaskType,
@@ -75,9 +74,7 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArg>
     }
 })
 
-const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>(`${slice.name}/updateTask`, async (arg, thunkAPI) => {
-    const {dispatch, rejectWithValue, getState} = thunkAPI
-    return thunkTryCatch(thunkAPI, async () => {
+const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>(`${slice.name}/updateTask`, async (arg, {dispatch, rejectWithValue, getState}) => {
         const state = getState()
         const task = state.tasks[arg.todolistId].find(t => t.id === arg.taskId)
         if (!task) {
@@ -98,23 +95,17 @@ const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>(`${slice.na
         if (res.data.resultCode === ResultCode.success) {
             return arg
         } else {
-            handleServerAppError(res.data, dispatch);
-            return rejectWithValue(null)
+            return rejectWithValue(res.data)
         }
-    })
 })
 
-const removeTask = createAppAsyncThunk<{ taskId: string, todolistId: string }, { taskId: string, todolistId: string }>(`${slice.name}/removeTask`, async (arg, thunkAPI) => {
-    const {dispatch, rejectWithValue} = thunkAPI
-    return thunkTryCatch(thunkAPI, async () => {
+const removeTask = createAppAsyncThunk<{ taskId: string, todolistId: string }, { taskId: string, todolistId: string }>(`${slice.name}/removeTask`, async (arg, {rejectWithValue}) => {
         const res = await tasksAPI.deleteTask(arg.todolistId, arg.taskId)
         if (res.data.resultCode === ResultCode.success) {
             return arg
         } else {
-            handleServerAppError(res.data, dispatch);
-            return rejectWithValue(null)
+            return rejectWithValue(res.data)
         }
-    })
 })
 
 // types
