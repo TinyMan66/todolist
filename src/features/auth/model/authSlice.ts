@@ -29,18 +29,14 @@ const slice = createSlice({
 });
 
 // thunks
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${slice.name}/login`, async (arg, thunkAPI) => {
-    const {dispatch, rejectWithValue} = thunkAPI
-    return thunkTryCatch(thunkAPI, async () => {
-        const res = await authAPI.login(arg)
-        if (res.data.resultCode === ResultCode.success) {
-            return {isLoggedIn: true}
-        } else {
-            const isShowAppError = !res.data.fieldsErrors.length
-            handleServerAppError(res.data, dispatch, isShowAppError);
-            return rejectWithValue(res.data);
-        }
-    })
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${slice.name}/login`, async (arg, {
+    rejectWithValue}) => {
+    const res = await authAPI.login(arg)
+    if (res.data.resultCode === ResultCode.success) {
+        return {isLoggedIn: true}
+    } else {
+        return rejectWithValue(res.data);
+    }
 })
 
 const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`${slice.name}/logout`, async (_, thunkAPI) => {
@@ -64,7 +60,7 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`$
         if (res.data.resultCode === ResultCode.success) {
             return {isLoggedIn: true}
         } else {
-            return rejectWithValue(null);
+            return rejectWithValue(res.data);
         }
     }).finally(() => {
         dispatch(appActions.setAppInitialized({isInitialized: true}))
@@ -74,3 +70,32 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`$
 export const authSlice = slice.reducer;
 export const authActions = slice.actions;
 export const authThunks = {login, logout, initializeApp}
+
+// const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${slice.name}/login`, async (arg, {
+//     rejectWithValue}) => {
+//     const res = await authAPI.login(arg)
+//     if (res.data.resultCode === ResultCode.success) {
+//         return {isLoggedIn: true}
+//     } else {
+//         return rejectWithValue(res.data);
+//     }
+// })
+//
+// const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`${slice.name}/logout`, async (_, {dispatch, rejectWithValue}) => {
+//     const res = await authAPI.logout()
+//     if (res.data.resultCode === ResultCode.success) {
+//         dispatch(clearTasksAndTodolists());
+//         return {isLoggedIn: false}
+//     } else {
+//         return rejectWithValue(res.data);
+//     }
+// })
+//
+// const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(`${slice.name}/initializeApp`, async (_, { rejectWithValue}) => {
+//     const res = await authAPI.me()
+//     if (res.data.resultCode === ResultCode.success) {
+//         return {isLoggedIn: true}
+//     } else {
+//         return rejectWithValue(res.data);
+//     }
+// })
