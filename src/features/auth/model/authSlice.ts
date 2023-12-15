@@ -36,7 +36,6 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${s
 }) => {
     const res = await authAPI.login(arg)
     if (res.data.resultCode === ResultCode.success) {
-        dispatch(authThunks.captcha())
         return {isLoggedIn: true}
     } else {
         if (res.data.resultCode === ResultCode.captcha) {

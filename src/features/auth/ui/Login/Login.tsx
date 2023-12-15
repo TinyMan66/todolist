@@ -1,13 +1,30 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material";
-import {selectIsLoggedIn} from "features/auth/model/auth.selectors";
+import {
+    Button,
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    FormLabel,
+    Grid,
+    TextField
+} from "@mui/material";
+import {selectCaptchaUrl, selectIsLoggedIn} from "features/auth/model/auth.selectors";
 import {useLogin} from "features/auth/lib/useLogin";
+import {useAppDispatch} from "common/hooks";
+import {authThunks} from "features/auth/model/authSlice";
+import s from "./Login.module.css"
 
 export const Login = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const captchaUrl = useSelector(selectCaptchaUrl);
   const {formik} = useLogin();
+  const dispatch = useAppDispatch();
+  const refreshCaptchaImage = () => {
+      dispatch(authThunks.captcha())
+  }
 
   if (isLoggedIn) {
     return <Navigate to={"/"} />;
@@ -38,6 +55,14 @@ export const Login = () => {
                 label={"Remember me"}
                 control={<Checkbox {...formik.getFieldProps("rememberMe")} checked={formik.values.rememberMe} />}
               />
+                {captchaUrl &&
+                    <div className={s.captchaContainer}>
+                        <img src={captchaUrl} alt="captcha"/>
+                        <Button type={"button"} variant={"contained"} color={"primary"} onClick={refreshCaptchaImage}>
+                            Change image
+                        </Button>
+                        <TextField style={{width: "100%", marginBottom: "20px"}} autoComplete='off' type="captcha" label="Enter symbols from the picture" margin="normal" {...formik.getFieldProps("captcha")} />
+                    </div> }
               <Button type={"submit"} variant={"contained"} color={"primary"} disabled={!(formik.isValid && formik.dirty)}>
                 Login
               </Button>
@@ -48,4 +73,3 @@ export const Login = () => {
     </Grid>
   );
 };
-
