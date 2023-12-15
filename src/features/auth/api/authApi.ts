@@ -13,3 +13,9 @@ export const authAPI = {
         return instance.get<BaseResponse<{ id: number; email: string; login: string }>>("auth/me");
     },
 };
+
+export const securityAPI = {
+    captcha() {
+        return instance.get<{url: string}>("security/get-captcha-url")
+    }
+}
