@@ -3,12 +3,12 @@ import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
 import {BaseResponse} from "common/types/commonTypes";
 
-type AddItemFormPropsType = {
+type Props = {
   addItem: (title: string) => Promise<unknown>;
   disabled?: boolean;
 };
 
-export const AddItemForm = React.memo(function ({ addItem, disabled = false }: AddItemFormPropsType) {
+export const AddItemForm = React.memo(function ({ addItem, disabled = false }: Props) {
   let [title, setTitle] = useState("");
   let [error, setError] = useState<string | null>(null);
 
