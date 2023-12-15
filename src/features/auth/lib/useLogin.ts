@@ -31,9 +31,11 @@ export const useLogin = () => {
             captcha: ""
         },
         onSubmit: (values, formikHelpers ) => {
+            formik.setFieldValue('captcha', "")
             dispatch(authThunks.login(values))
                 .unwrap()
-                .then(() => {})
+                .then(() => {
+                })
                 .catch((reason: BaseResponse) => {
                     reason.fieldsErrors?.forEach((f) =>{
                         return formikHelpers.setFieldError(f.field, f.error)

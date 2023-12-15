@@ -61,7 +61,7 @@ export const Login = () => {
                         <Button type={"button"} variant={"contained"} color={"primary"} onClick={refreshCaptchaImage}>
                             Change image
                         </Button>
-                        <TextField style={{width: "100%", marginBottom: "20px"}} autoComplete='off' type="captcha" label="Enter symbols from the picture" margin="normal" {...formik.getFieldProps("captcha")} />
+                        <TextField style={{width: "100%", marginBottom: "20px",marginTop: "20px" }} autoComplete='off' type="captcha" label="Enter symbols from the picture" margin="normal" {...formik.getFieldProps("captcha")} />
                     </div> }
               <Button type={"submit"} variant={"contained"} color={"primary"} disabled={!(formik.isValid && formik.dirty)}>
                 Login
